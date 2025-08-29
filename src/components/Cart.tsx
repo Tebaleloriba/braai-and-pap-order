@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Trash2, Plus, Minus } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface CartItem {
   id: string;
@@ -38,7 +39,7 @@ const Cart = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveItem, onPl
   const deliveryFee = total > 200 ? 0 : 35;
   const finalTotal = total + deliveryFee;
 
-  const handlePlaceOrder = () => {
+  const handlePlaceOrder = async () => {
     if (!orderDetails.name || !orderDetails.phone || !orderDetails.address) {
       toast({
         title: "Missing Information",
@@ -57,19 +58,49 @@ const Cart = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveItem, onPl
       return;
     }
 
-    onPlaceOrder({
-      ...orderDetails,
-      items: cartItems,
-      total: finalTotal,
-      timestamp: new Date().toISOString()
-    });
+    try {
+      // Send order email notification
+      const { error } = await supabase.functions.invoke('send-order-email', {
+        body: {
+          customerName: orderDetails.name,
+          customerPhone: orderDetails.phone,
+          customerAddress: orderDetails.address,
+          specialInstructions: orderDetails.notes,
+          items: cartItems,
+          total: finalTotal
+        }
+      });
 
-    toast({
-      title: "Order Placed!",
-      description: "Your delicious meal is being prepared. We'll track your location for delivery."
-    });
+      if (error) {
+        console.error('Email sending error:', error);
+        toast({
+          title: "Order Placed",
+          description: "Your order was placed successfully, but we couldn't send the confirmation email.",
+          variant: "default"
+        });
+      } else {
+        toast({
+          title: "Order Placed!",
+          description: "Your delicious meal is being prepared. We'll track your location for delivery."
+        });
+      }
 
-    onClose();
+      onPlaceOrder({
+        ...orderDetails,
+        items: cartItems,
+        total: finalTotal,
+        timestamp: new Date().toISOString()
+      });
+
+      onClose();
+    } catch (error) {
+      console.error('Order placement error:', error);
+      toast({
+        title: "Error",
+        description: "There was an issue placing your order. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
 
   return (
