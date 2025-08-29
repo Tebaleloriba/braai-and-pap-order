@@ -286,6 +286,7 @@ const Cart = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveItem, onPl
                 onBack={handleBackFromCardPayment}
                 onPaymentComplete={handleCardPaymentComplete}
                 orderDetails={orderDetails}
+                onLocationUpdate={(address) => setOrderDetails(prev => ({ ...prev, address }))}
               />
             </div>
           )}

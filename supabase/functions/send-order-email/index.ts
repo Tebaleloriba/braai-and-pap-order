@@ -23,6 +23,7 @@ interface OrderEmailRequest {
   specialInstructions?: string;
   items: OrderItem[];
   total: number;
+  paymentMethod: string;
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -38,7 +39,8 @@ const handler = async (req: Request): Promise<Response> => {
       customerAddress, 
       specialInstructions, 
       items, 
-      total 
+      total,
+      paymentMethod 
     }: OrderEmailRequest = await req.json();
 
     // Generate order items HTML
@@ -67,6 +69,7 @@ const handler = async (req: Request): Promise<Response> => {
               <p><strong>Name:</strong> ${customerName}</p>
               <p><strong>Phone:</strong> ${customerPhone}</p>
               <p><strong>Address:</strong> ${customerAddress}</p>
+              <p><strong>Payment Method:</strong> ${paymentMethod}</p>
               ${specialInstructions ? `<p><strong>Special Instructions:</strong> ${specialInstructions}</p>` : ''}
             </div>
 

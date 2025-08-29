@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft, CreditCard, Lock } from "lucide-react";
+import { ArrowLeft, CreditCard, Lock, Navigation } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface CardPaymentFormProps {
@@ -12,9 +12,10 @@ interface CardPaymentFormProps {
   onBack: () => void;
   onPaymentComplete: () => void;
   orderDetails: any;
+  onLocationUpdate?: (address: string) => void;
 }
 
-const CardPaymentForm = ({ total, onBack, onPaymentComplete, orderDetails }: CardPaymentFormProps) => {
+const CardPaymentForm = ({ total, onBack, onPaymentComplete, orderDetails, onLocationUpdate }: CardPaymentFormProps) => {
   const [cardDetails, setCardDetails] = useState({
     cardNumber: "",
     expiryDate: "",
@@ -22,6 +23,7 @@ const CardPaymentForm = ({ total, onBack, onPaymentComplete, orderDetails }: Car
     cardholderName: ""
   });
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isGettingLocation, setIsGettingLocation] = useState(false);
   const { toast } = useToast();
 
   const formatCardNumber = (value: string) => {
@@ -71,6 +73,39 @@ const CardPaymentForm = ({ total, onBack, onPaymentComplete, orderDetails }: Car
            cardDetails.cardholderName.trim().length > 0;
   };
 
+  const getCurrentLocation = () => {
+    if (navigator.geolocation) {
+      setIsGettingLocation(true);
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          const locationString = `Current Location (${latitude.toFixed(4)}, ${longitude.toFixed(4)})`;
+          onLocationUpdate?.(locationString);
+          setIsGettingLocation(false);
+          toast({
+            title: "Location Updated",
+            description: "Current location has been set as delivery address"
+          });
+        },
+        (error) => {
+          setIsGettingLocation(false);
+          console.error("Error getting location:", error);
+          toast({
+            title: "Location Error",
+            description: "Unable to get current location. Please enter address manually.",
+            variant: "destructive"
+          });
+        }
+      );
+    } else {
+      toast({
+        title: "Location Not Supported",
+        description: "Geolocation is not supported by this browser.",
+        variant: "destructive"
+      });
+    }
+  };
+
   const handlePayment = async () => {
     if (!isFormValid()) {
       toast({
@@ -115,6 +150,30 @@ const CardPaymentForm = ({ total, onBack, onPaymentComplete, orderDetails }: Car
         </div>
 
         <div className="space-y-4">
+          <div className="p-3 bg-muted rounded-lg">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium">Delivery Address</p>
+                <p className="text-xs text-muted-foreground">{orderDetails.address || "No address set"}</p>
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={getCurrentLocation}
+                disabled={isGettingLocation}
+              >
+                {isGettingLocation ? (
+                  "Getting..."
+                ) : (
+                  <>
+                    <Navigation className="w-4 h-4 mr-1" />
+                    Use Current
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
+
           <div>
             <Label htmlFor="cardholderName">Cardholder Name</Label>
             <Input
