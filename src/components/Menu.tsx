@@ -126,63 +126,66 @@ const Menu = ({ onAddToCart }: MenuProps) => {
         </div>
 
         {/* Menu Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
           {filteredItems.map((item) => (
             <Card key={item.id} className="group hover:shadow-warm transition-all duration-300 bg-gradient-card border-border/50">
               <div className="relative overflow-hidden rounded-t-lg">
                 <img 
                   src={item.image} 
                   alt={item.name}
-                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                <div className="absolute top-4 left-4 flex gap-2">
+                <div className="absolute top-2 sm:top-4 left-2 sm:left-4 flex gap-1 sm:gap-2">
                   {item.popular && (
-                    <Badge className="bg-primary text-primary-foreground">Popular</Badge>
+                    <Badge className="bg-primary text-primary-foreground text-xs sm:text-sm">Popular</Badge>
                   )}
                   {item.spicy && (
-                    <Badge variant="destructive">Spicy</Badge>
+                    <Badge variant="destructive" className="text-xs sm:text-sm">Spicy</Badge>
                   )}
                 </div>
               </div>
               
-              <CardHeader>
-                <CardTitle className="text-xl text-foreground">{item.name}</CardTitle>
-                <CardDescription className="text-muted-foreground">
+              <CardHeader className="p-3 sm:p-6">
+                <CardTitle className="text-lg sm:text-xl text-foreground">{item.name}</CardTitle>
+                <CardDescription className="text-sm sm:text-base text-muted-foreground line-clamp-2">
                   {item.description}
                 </CardDescription>
               </CardHeader>
               
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-3 sm:space-y-4 p-3 sm:p-6 pt-0">
                 <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-primary">R{item.price}</span>
-                  <Badge variant="outline">{item.category}</Badge>
+                  <span className="text-xl sm:text-2xl font-bold text-primary">R{item.price}</span>
+                  <Badge variant="outline" className="text-xs sm:text-sm">{item.category}</Badge>
                 </div>
                 
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-0">
+                  <div className="flex items-center justify-center sm:justify-start space-x-2">
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={() => updateQuantity(item.id, -1)}
                       disabled={!quantities[item.id]}
+                      className="h-8 w-8 p-0"
                     >
-                      <Minus className="w-4 h-4" />
+                      <Minus className="w-3 h-3 sm:w-4 sm:h-4" />
                     </Button>
-                    <span className="w-8 text-center font-medium">
+                    <span className="w-8 text-center font-medium text-sm sm:text-base">
                       {quantities[item.id] || 1}
                     </span>
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={() => updateQuantity(item.id, 1)}
+                      className="h-8 w-8 p-0"
                     >
-                      <Plus className="w-4 h-4" />
+                      <Plus className="w-3 h-3 sm:w-4 sm:h-4" />
                     </Button>
                   </div>
                   
                   <Button
                     onClick={() => addToCart(item)}
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground text-sm sm:text-base px-3 sm:px-4"
+                    size="sm"
                   >
                     Add to Cart
                   </Button>

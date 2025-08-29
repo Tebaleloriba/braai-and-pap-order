@@ -165,11 +165,11 @@ const LocationMap = ({ onLocationSelect }: LocationMapProps) => {
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className="flex flex-col lg:flex-row gap-4 sm:gap-8">
           <div className="flex-1">
             <Card>
               <CardContent className="p-0">
-                <div ref={mapContainer} className="w-full h-96 rounded-lg" />
+                <div ref={mapContainer} className="w-full h-64 sm:h-80 lg:h-96 rounded-lg" />
               </CardContent>
             </Card>
           </div>

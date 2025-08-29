@@ -175,45 +175,49 @@ const CardPaymentForm = ({ total, onBack, onPaymentComplete, orderDetails, onLoc
           </div>
 
           <div>
-            <Label htmlFor="cardholderName">Cardholder Name</Label>
+            <Label htmlFor="cardholderName" className="text-sm">Cardholder Name</Label>
             <Input
               id="cardholderName"
               placeholder="John Doe"
               value={cardDetails.cardholderName}
               onChange={(e) => handleInputChange('cardholderName', e.target.value)}
+              className="text-sm sm:text-base"
             />
           </div>
 
           <div>
-            <Label htmlFor="cardNumber">Card Number</Label>
+            <Label htmlFor="cardNumber" className="text-sm">Card Number</Label>
             <Input
               id="cardNumber"
               placeholder="1234 5678 9012 3456"
               value={cardDetails.cardNumber}
               onChange={(e) => handleInputChange('cardNumber', e.target.value)}
               maxLength={19}
+              className="text-sm sm:text-base"
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
             <div>
-              <Label htmlFor="expiryDate">Expiry Date</Label>
+              <Label htmlFor="expiryDate" className="text-sm">Expiry Date</Label>
               <Input
                 id="expiryDate"
                 placeholder="MM/YY"
                 value={cardDetails.expiryDate}
                 onChange={(e) => handleInputChange('expiryDate', e.target.value)}
                 maxLength={5}
+                className="text-sm sm:text-base"
               />
             </div>
             <div>
-              <Label htmlFor="cvv">CVV</Label>
+              <Label htmlFor="cvv" className="text-sm">CVV</Label>
               <Input
                 id="cvv"
                 placeholder="123"
                 value={cardDetails.cvv}
                 onChange={(e) => handleInputChange('cvv', e.target.value)}
                 maxLength={3}
+                className="text-sm sm:text-base"
               />
             </div>
           </div>

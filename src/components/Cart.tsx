@@ -144,53 +144,56 @@ const Cart = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveItem, onPl
   return (
     <>
       <Sheet open={isOpen} onOpenChange={onClose}>
-        <SheetContent className="w-full sm:max-w-lg">
+        <SheetContent className="w-full sm:max-w-lg overflow-y-auto p-3 sm:p-6">
           {!showCardPayment ? (
             <>
-              <SheetHeader>
-                <SheetTitle>Your Order</SheetTitle>
+              <SheetHeader className="mb-4">
+                <SheetTitle className="text-lg sm:text-xl">Your Order</SheetTitle>
               </SheetHeader>
 
-              <div className="mt-6 space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 {/* Cart Items */}
-                <div className="space-y-4 max-h-60 overflow-y-auto">
+                <div className="space-y-3 sm:space-y-4 max-h-48 sm:max-h-60 overflow-y-auto">
                   {cartItems.length === 0 ? (
-                    <p className="text-center text-muted-foreground py-8">Your cart is empty</p>
+                    <p className="text-center text-muted-foreground py-6 sm:py-8 text-sm sm:text-base">Your cart is empty</p>
                   ) : (
                     cartItems.map((item) => (
-                      <Card key={item.id} className="p-4">
-                        <div className="flex items-center space-x-4">
+                      <Card key={item.id} className="p-3 sm:p-4">
+                        <div className="flex items-center space-x-3 sm:space-x-4">
                           <img 
                             src={item.image} 
                             alt={item.name}
-                            className="w-16 h-16 object-cover rounded-lg"
+                            className="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded-lg"
                           />
-                          <div className="flex-1">
-                            <h4 className="font-medium text-foreground">{item.name}</h4>
-                            <p className="text-sm text-muted-foreground">R{item.price} each</p>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="font-medium text-foreground text-sm sm:text-base truncate">{item.name}</h4>
+                            <p className="text-xs sm:text-sm text-muted-foreground">R{item.price} each</p>
                           </div>
-                          <div className="flex items-center space-x-2">
+                          <div className="flex items-center space-x-1 sm:space-x-2">
                             <Button
                               variant="outline"
                               size="sm"
                               onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}
+                              className="h-7 w-7 sm:h-8 sm:w-8 p-0"
                             >
-                              <Minus className="w-4 h-4" />
+                              <Minus className="w-3 h-3 sm:w-4 sm:h-4" />
                             </Button>
-                            <span className="w-8 text-center">{item.quantity}</span>
+                            <span className="w-6 sm:w-8 text-center text-sm sm:text-base">{item.quantity}</span>
                             <Button
                               variant="outline"
                               size="sm"
                               onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
+                              className="h-7 w-7 sm:h-8 sm:w-8 p-0"
                             >
-                              <Plus className="w-4 h-4" />
+                              <Plus className="w-3 h-3 sm:w-4 sm:h-4" />
                             </Button>
                             <Button
                               variant="outline"
                               size="sm"
                               onClick={() => onRemoveItem(item.id)}
+                              className="h-7 w-7 sm:h-8 sm:w-8 p-0 ml-1 sm:ml-2"
                             >
-                              <Trash2 className="w-4 h-4" />
+                              <Trash2 className="w-3 h-3 sm:w-4 sm:h-4" />
                             </Button>
                           </div>
                         </div>
@@ -201,20 +204,20 @@ const Cart = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveItem, onPl
 
                 {/* Order Total */}
                 {cartItems.length > 0 && (
-                  <Card className="p-4 bg-muted/50">
+                  <Card className="p-3 sm:p-4 bg-muted/50">
                     <div className="space-y-2">
-                      <div className="flex justify-between">
+                      <div className="flex justify-between text-sm sm:text-base">
                         <span>Subtotal</span>
                         <span>R{total}</span>
                       </div>
-                      <div className="flex justify-between text-sm text-muted-foreground">
+                      <div className="flex justify-between text-xs sm:text-sm text-muted-foreground">
                         <span>Delivery Fee</span>
                         <span>{deliveryFee === 0 ? "FREE" : `R${deliveryFee}`}</span>
                       </div>
                       {deliveryFee === 0 && (
-                        <p className="text-xs text-primary">Free delivery on orders over R200!</p>
+                        <p className="text-xs sm:text-xs text-primary">Free delivery on orders over R200!</p>
                       )}
-                      <div className="flex justify-between font-bold text-lg border-t pt-2">
+                      <div className="flex justify-between font-bold text-base sm:text-lg border-t pt-2">
                         <span>Total</span>
                         <span>R{finalTotal}</span>
                       </div>
@@ -223,10 +226,10 @@ const Cart = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveItem, onPl
                 )}
 
                 {/* Order Form */}
-                <div className="space-y-4">
-                  <h3 className="font-semibold text-foreground">Delivery Details</h3>
+                <div className="space-y-3 sm:space-y-4">
+                  <h3 className="font-semibold text-foreground text-sm sm:text-base">Delivery Details</h3>
                   
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <div>
                       <Label htmlFor="name">Name *</Label>
                       <Input
@@ -271,7 +274,7 @@ const Cart = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveItem, onPl
 
                   <Button 
                     onClick={handlePlaceOrderClick}
-                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-sm sm:text-base"
                     size="lg"
                   >
                     Place Order - R{finalTotal}
