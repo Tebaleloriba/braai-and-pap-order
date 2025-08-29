@@ -1,0 +1,181 @@
+
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { ArrowLeft, CreditCard, Lock } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+
+interface CardPaymentFormProps {
+  total: number;
+  onBack: () => void;
+  onPaymentComplete: () => void;
+  orderDetails: any;
+}
+
+const CardPaymentForm = ({ total, onBack, onPaymentComplete, orderDetails }: CardPaymentFormProps) => {
+  const [cardDetails, setCardDetails] = useState({
+    cardNumber: "",
+    expiryDate: "",
+    cvv: "",
+    cardholderName: ""
+  });
+  const [isProcessing, setIsProcessing] = useState(false);
+  const { toast } = useToast();
+
+  const formatCardNumber = (value: string) => {
+    const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+    const matches = v.match(/\d{4,16}/g);
+    const match = matches && matches[0] || '';
+    const parts = [];
+    for (let i = 0, len = match.length; i < len; i += 4) {
+      parts.push(match.substring(i, i + 4));
+    }
+    if (parts.length) {
+      return parts.join(' ');
+    } else {
+      return v;
+    }
+  };
+
+  const formatExpiryDate = (value: string) => {
+    const v = value.replace(/\D/g, '');
+    if (v.length >= 2) {
+      return v.substring(0, 2) + '/' + v.substring(2, 4);
+    }
+    return v;
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    let formattedValue = value;
+    
+    if (field === 'cardNumber') {
+      formattedValue = formatCardNumber(value);
+    } else if (field === 'expiryDate') {
+      formattedValue = formatExpiryDate(value);
+    } else if (field === 'cvv') {
+      formattedValue = value.replace(/\D/g, '').substring(0, 3);
+    }
+
+    setCardDetails(prev => ({
+      ...prev,
+      [field]: formattedValue
+    }));
+  };
+
+  const isFormValid = () => {
+    return cardDetails.cardNumber.replace(/\s/g, '').length >= 16 &&
+           cardDetails.expiryDate.length === 5 &&
+           cardDetails.cvv.length === 3 &&
+           cardDetails.cardholderName.trim().length > 0;
+  };
+
+  const handlePayment = async () => {
+    if (!isFormValid()) {
+      toast({
+        title: "Invalid Card Details",
+        description: "Please fill in all card details correctly",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsProcessing(true);
+
+    // Simulate payment processing
+    setTimeout(() => {
+      setIsProcessing(false);
+      toast({
+        title: "Payment Successful!",
+        description: "Your order has been confirmed and is being prepared."
+      });
+      onPaymentComplete();
+    }, 2000);
+  };
+
+  return (
+    <Card className="w-full max-w-md mx-auto">
+      <CardHeader>
+        <div className="flex items-center space-x-2">
+          <Button variant="ghost" size="sm" onClick={onBack} className="p-1">
+            <ArrowLeft className="w-4 h-4" />
+          </Button>
+          <CardTitle className="flex items-center space-x-2">
+            <CreditCard className="w-5 h-5" />
+            <span>Card Payment</span>
+          </CardTitle>
+        </div>
+      </CardHeader>
+
+      <CardContent className="space-y-6">
+        <div className="text-center p-4 bg-muted rounded-lg">
+          <p className="text-2xl font-bold text-primary">R{total}</p>
+          <p className="text-sm text-muted-foreground">Total Amount</p>
+        </div>
+
+        <div className="space-y-4">
+          <div>
+            <Label htmlFor="cardholderName">Cardholder Name</Label>
+            <Input
+              id="cardholderName"
+              placeholder="John Doe"
+              value={cardDetails.cardholderName}
+              onChange={(e) => handleInputChange('cardholderName', e.target.value)}
+            />
+          </div>
+
+          <div>
+            <Label htmlFor="cardNumber">Card Number</Label>
+            <Input
+              id="cardNumber"
+              placeholder="1234 5678 9012 3456"
+              value={cardDetails.cardNumber}
+              onChange={(e) => handleInputChange('cardNumber', e.target.value)}
+              maxLength={19}
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="expiryDate">Expiry Date</Label>
+              <Input
+                id="expiryDate"
+                placeholder="MM/YY"
+                value={cardDetails.expiryDate}
+                onChange={(e) => handleInputChange('expiryDate', e.target.value)}
+                maxLength={5}
+              />
+            </div>
+            <div>
+              <Label htmlFor="cvv">CVV</Label>
+              <Input
+                id="cvv"
+                placeholder="123"
+                value={cardDetails.cvv}
+                onChange={(e) => handleInputChange('cvv', e.target.value)}
+                maxLength={3}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-center space-x-2 text-sm text-muted-foreground">
+          <Lock className="w-4 h-4" />
+          <span>Your payment is secured with SSL encryption</span>
+        </div>
+
+        <Button 
+          onClick={handlePayment}
+          disabled={!isFormValid() || isProcessing}
+          className="w-full"
+          size="lg"
+        >
+          {isProcessing ? "Processing..." : `Pay R${total}`}
+        </Button>
+      </CardContent>
+    </Card>
+  );
+};
+
+export default CardPaymentForm;
