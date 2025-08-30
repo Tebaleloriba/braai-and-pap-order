@@ -18,16 +18,6 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30"></div>
       </div>
       
-      {/* Order Now Button - Top Right */}
-      <div className="absolute top-4 right-4 z-20">
-        <Button 
-          onClick={scrollToMenu}
-          size="sm" 
-          className="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 text-sm font-semibold shadow-glow"
-        >
-          Order Now
-        </Button>
-      </div>
       
       {/* Content */}
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
