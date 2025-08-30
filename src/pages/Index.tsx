@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Menu from "@/components/Menu";
 import Cart from "@/components/Cart";
-import LocationMap from "@/components/LocationMap";
+import LocationSelector from "@/components/LocationSelector";
 import BottomNavigation from "@/components/BottomNavigation";
 
 interface CartItem {
@@ -75,7 +75,7 @@ const Index = () => {
       
       <Menu onAddToCart={addToCart} />
       
-      <LocationMap />
+      <LocationSelector />
       
       <BottomNavigation 
         cartItemCount={cartItemCount}
