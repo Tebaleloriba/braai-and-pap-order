@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface HeaderProps {}
 
@@ -20,13 +21,16 @@ const Header = ({}: HeaderProps) => {
           </div>
         </div>
         
-        <Button 
-          onClick={scrollToMenu}
-          size="sm" 
-          className="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 text-sm font-semibold"
-        >
-          Order Now
-        </Button>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <Button 
+            onClick={scrollToMenu}
+            size="sm" 
+            className="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 text-sm font-semibold"
+          >
+            Order Now
+          </Button>
+        </div>
       </div>
     </header>
   );
