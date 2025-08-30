@@ -26,7 +26,7 @@ const menuItems: MenuItem[] = [
   {
     id: "1",
     name: "Traditional Pap & Braai Combo",
-    description: "Soft maize meal pap served with perfectly grilled beef and boerewors, sided with chakalaka",
+    description: "",
     price: 159,
     image: papMealImage,
     category: "Combo Meals",
@@ -35,7 +35,7 @@ const menuItems: MenuItem[] = [
   {
     id: "2", 
     name: "Boerewors & Pap",
-    description: "Traditional South African farmer's sausage with creamy pap and tomato relish",
+    description: "",
     price: 119,
     image: boereworsImage,
     category: "Traditional"
@@ -43,7 +43,7 @@ const menuItems: MenuItem[] = [
   {
     id: "3",
     name: "Potjiekos Special",
-    description: "Slow-cooked three-legged pot stew with tender meat, vegetables and traditional spices",
+    description: "",
     price: 189,
     image: potjiekosImage,
     category: "Specialties",
@@ -52,7 +52,7 @@ const menuItems: MenuItem[] = [
   {
     id: "4",
     name: "Braai Platter for Two",
-    description: "Mixed grill with boerewors, lamb chops, chicken, served with pap, chakalaka and morogo",
+    description: "",
     price: 299,
     image: papMealImage,
     category: "Sharing"
@@ -60,7 +60,7 @@ const menuItems: MenuItem[] = [
   {
     id: "5",
     name: "Pap & Morogo",
-    description: "Traditional African spinach cooked with onions and tomatoes, served with soft pap",
+    description: "",
     price: 89,
     image: potjiekosImage,
     category: "Vegetarian"
@@ -68,11 +68,43 @@ const menuItems: MenuItem[] = [
   {
     id: "6",
     name: "Sosaties",
-    description: "Cape Malay curry-flavoured kebabs with lamb and dried apricots",
+    description: "",
     price: 145,
     image: boereworsImage,
     category: "Traditional",
     spicy: true
+  },
+  {
+    id: "7",
+    name: "Mageu",
+    description: "",
+    price: 25,
+    image: potjiekosImage,
+    category: "Drinks"
+  },
+  {
+    id: "8",
+    name: "Rooibos Tea",
+    description: "",
+    price: 20,
+    image: boereworsImage,
+    category: "Drinks"
+  },
+  {
+    id: "9",
+    name: "Castle Lager",
+    description: "",
+    price: 35,
+    image: papMealImage,
+    category: "Drinks"
+  },
+  {
+    id: "10",
+    name: "Amarula Cream",
+    description: "",
+    price: 45,
+    image: potjiekosImage,
+    category: "Drinks"
   }
 ];
 
@@ -128,7 +160,7 @@ const Menu = ({ onAddToCart }: MenuProps) => {
         {/* Menu Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
           {filteredItems.map((item) => (
-            <Card key={item.id} className="group hover:shadow-warm transition-all duration-300 bg-gradient-card border-border/50">
+            <Card key={item.id} className="group hover:shadow-warm transition-all duration-300 bg-gradient-card border-border/50 flex flex-col">
               <div className="relative overflow-hidden rounded-t-lg">
                 <img 
                   src={item.image} 
@@ -145,14 +177,11 @@ const Menu = ({ onAddToCart }: MenuProps) => {
                 </div>
               </div>
               
-              <CardHeader className="p-3 sm:p-6">
+              <CardHeader className="p-3 sm:p-6 flex-grow">
                 <CardTitle className="text-lg sm:text-xl text-foreground">{item.name}</CardTitle>
-                <CardDescription className="text-sm sm:text-base text-muted-foreground line-clamp-2">
-                  {item.description}
-                </CardDescription>
               </CardHeader>
               
-              <CardContent className="space-y-3 sm:space-y-4 p-3 sm:p-6 pt-0">
+              <CardContent className="space-y-3 sm:space-y-4 p-3 sm:p-6 pt-0 mt-auto">
                 <div className="flex items-center justify-between">
                   <span className="text-xl sm:text-2xl font-bold text-primary">R{item.price}</span>
                   <Badge variant="outline" className="text-xs sm:text-sm">{item.category}</Badge>
