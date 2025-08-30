@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import Menu from "@/components/Menu";
 import Cart from "@/components/Cart";
 import LocationMap from "@/components/LocationMap";
+import BottomNavigation from "@/components/BottomNavigation";
 
 interface CartItem {
   id: string;
@@ -67,17 +68,20 @@ const Index = () => {
   const cartItemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header 
-        cartItemCount={cartItemCount}
-        onCartClick={() => setIsCartOpen(true)}
-      />
+    <div className="min-h-screen bg-background pb-16">
+      <Header />
       
       <Hero />
       
       <Menu onAddToCart={addToCart} />
       
       <LocationMap />
+      
+      <BottomNavigation 
+        cartItemCount={cartItemCount}
+        onCartClick={() => setIsCartOpen(true)}
+        onMenuClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}
+      />
       
       <Cart
         isOpen={isCartOpen}

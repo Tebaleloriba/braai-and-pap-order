@@ -126,7 +126,7 @@ const Menu = ({ onAddToCart }: MenuProps) => {
         </div>
 
         {/* Menu Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
           {filteredItems.map((item) => (
             <Card key={item.id} className="group hover:shadow-warm transition-all duration-300 bg-gradient-card border-border/50">
               <div className="relative overflow-hidden rounded-t-lg">
