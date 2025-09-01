@@ -35,7 +35,7 @@ const AdminDashboard = () => {
 
   const handleLoginSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (username === "admin" && password === "Admin877") {
+    if (username === "tebaleloriba1129@gmail.com" && password === "Admin877") {
       setIsAuthenticated(true);
       setShowLoginDialog(false);
       fetchOrders();
@@ -133,7 +133,7 @@ const AdminDashboard = () => {
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="Username"
+                placeholder="Email"
                 className="text-center"
                 required
               />
