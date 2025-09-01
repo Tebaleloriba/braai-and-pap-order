@@ -35,7 +35,10 @@ const AdminDashboard = () => {
 
   const handleLoginSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (username === "tebaleloriba1129@gmail.com" && password === "Admin877") {
+    console.log("Admin login attempt:", { username, password });
+    
+    if (username.trim() === "tebaleloriba1129@gmail.com" && password.trim() === "Admin877") {
+      console.log("Admin credentials valid, granting access");
       setIsAuthenticated(true);
       setShowLoginDialog(false);
       fetchOrders();
@@ -44,6 +47,7 @@ const AdminDashboard = () => {
         description: "Welcome to the admin dashboard"
       });
     } else {
+      console.log("Admin credentials invalid");
       toast({
         title: "Access Denied",
         description: "Invalid admin credentials",
