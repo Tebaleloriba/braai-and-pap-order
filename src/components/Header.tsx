@@ -1,12 +1,38 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import LocationSearchBar from "@/components/LocationSearchBar";
+import { supabase } from "@/integrations/supabase/client";
+import AuthModal from "@/components/AuthModal";
+import { LogOut, User } from "lucide-react";
 
 interface HeaderProps {}
 
 const Header = ({}: HeaderProps) => {
+  const [user, setUser] = useState<any>(null);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
+  useEffect(() => {
+    // Set up auth state listener
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setUser(session?.user ?? null);
+      }
+    );
+
+    // Check for existing session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
   const scrollToMenu = () => {
     document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
   };
 
   return (
@@ -25,6 +51,32 @@ const Header = ({}: HeaderProps) => {
           
           <div className="flex items-center gap-2">
             <ThemeToggle />
+            {user ? (
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-muted-foreground">
+                  {user.email}
+                </span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleSignOut}
+                  className="flex items-center gap-1"
+                >
+                  <LogOut className="w-3 h-3" />
+                  Sign Out
+                </Button>
+              </div>
+            ) : (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setIsAuthModalOpen(true)}
+                className="flex items-center gap-1"
+              >
+                <User className="w-3 h-3" />
+                Sign In
+              </Button>
+            )}
             <Button 
               onClick={scrollToMenu}
               size="sm" 
@@ -36,10 +88,11 @@ const Header = ({}: HeaderProps) => {
         </div>
       </header>
       
-      {/* Location Search Bar */}
-      <div className="sticky top-[73px] z-40 bg-background/95 backdrop-blur-sm border-b border-border py-3">
-        <LocationSearchBar />
-      </div>
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        onAuthSuccess={() => {}}
+      />
     </>
   );
 };

@@ -14,7 +14,318 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      answers: {
+        Row: {
+          ai_feedback: string | null
+          ai_score: number | null
+          answer_text: string
+          created_at: string
+          id: string
+          question_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          ai_feedback?: string | null
+          ai_score?: number | null
+          answer_text: string
+          created_at?: string
+          id?: string
+          question_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          ai_feedback?: string | null
+          ai_score?: number | null
+          answer_text?: string
+          created_at?: string
+          id?: string
+          question_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "answers_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      drivers: {
+        Row: {
+          created_at: string | null
+          current_latitude: number | null
+          current_longitude: number | null
+          id: string
+          is_available: boolean | null
+          is_verified: boolean | null
+          license_number: string | null
+          license_plate: string | null
+          rating: number | null
+          total_trips: number | null
+          updated_at: string | null
+          vehicle_make: string | null
+          vehicle_model: string | null
+          vehicle_year: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          current_latitude?: number | null
+          current_longitude?: number | null
+          id: string
+          is_available?: boolean | null
+          is_verified?: boolean | null
+          license_number?: string | null
+          license_plate?: string | null
+          rating?: number | null
+          total_trips?: number | null
+          updated_at?: string | null
+          vehicle_make?: string | null
+          vehicle_model?: string | null
+          vehicle_year?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          current_latitude?: number | null
+          current_longitude?: number | null
+          id?: string
+          is_available?: boolean | null
+          is_verified?: boolean | null
+          license_number?: string | null
+          license_plate?: string | null
+          rating?: number | null
+          total_trips?: number | null
+          updated_at?: string | null
+          vehicle_make?: string | null
+          vehicle_model?: string | null
+          vehicle_year?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "drivers_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          created_at: string
+          customer_address: string
+          customer_name: string
+          customer_phone: string
+          id: string
+          items: Json
+          payment_method: string
+          special_instructions: string | null
+          status: string
+          total: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          customer_address: string
+          customer_name: string
+          customer_phone: string
+          id?: string
+          items: Json
+          payment_method: string
+          special_instructions?: string | null
+          status?: string
+          total: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          customer_address?: string
+          customer_name?: string
+          customer_phone?: string
+          id?: string
+          items?: Json
+          payment_method?: string
+          special_instructions?: string | null
+          status?: string
+          total?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string | null
+          email: string
+          full_name: string | null
+          id: string
+          phone: string | null
+          updated_at: string | null
+          user_type: string
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          full_name?: string | null
+          id: string
+          phone?: string | null
+          updated_at?: string | null
+          user_type: string
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          updated_at?: string | null
+          user_type?: string
+        }
+        Relationships: []
+      }
+      questions: {
+        Row: {
+          created_at: string
+          expected_answer: string | null
+          id: string
+          marks: number
+          question_text: string
+          upload_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          expected_answer?: string | null
+          id?: string
+          marks: number
+          question_text: string
+          upload_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          expected_answer?: string | null
+          id?: string
+          marks?: number
+          question_text?: string
+          upload_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "questions_upload_id_fkey"
+            columns: ["upload_id"]
+            isOneToOne: false
+            referencedRelation: "uploads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      rides: {
+        Row: {
+          created_at: string | null
+          destination_address: string | null
+          destination_latitude: number
+          destination_longitude: number
+          driver_id: string | null
+          fare_amount: number | null
+          id: string
+          passenger_id: string
+          pickup_address: string | null
+          pickup_latitude: number
+          pickup_longitude: number
+          status: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          destination_address?: string | null
+          destination_latitude: number
+          destination_longitude: number
+          driver_id?: string | null
+          fare_amount?: number | null
+          id?: string
+          passenger_id: string
+          pickup_address?: string | null
+          pickup_latitude: number
+          pickup_longitude: number
+          status?: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          destination_address?: string | null
+          destination_latitude?: number
+          destination_longitude?: number
+          driver_id?: string | null
+          fare_amount?: number | null
+          id?: string
+          passenger_id?: string
+          pickup_address?: string | null
+          pickup_latitude?: number
+          pickup_longitude?: number
+          status?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rides_driver_id_fkey"
+            columns: ["driver_id"]
+            isOneToOne: false
+            referencedRelation: "drivers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "rides_passenger_id_fkey"
+            columns: ["passenger_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      uploads: {
+        Row: {
+          content_type: string
+          created_at: string
+          extracted_text: string | null
+          file_url: string | null
+          filename: string
+          id: string
+          status: string
+          updated_at: string
+          upload_type: string
+          user_id: string
+        }
+        Insert: {
+          content_type: string
+          created_at?: string
+          extracted_text?: string | null
+          file_url?: string | null
+          filename: string
+          id?: string
+          status?: string
+          updated_at?: string
+          upload_type: string
+          user_id: string
+        }
+        Update: {
+          content_type?: string
+          created_at?: string
+          extracted_text?: string | null
+          file_url?: string | null
+          filename?: string
+          id?: string
+          status?: string
+          updated_at?: string
+          upload_type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
