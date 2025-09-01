@@ -24,19 +24,20 @@ interface Order {
 }
 
 const AdminDashboard = () => {
-  const [pin, setPin] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [showPinDialog, setShowPinDialog] = useState(true);
+  const [showLoginDialog, setShowLoginDialog] = useState(true);
   const [orders, setOrders] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  const handlePinSubmit = (e: React.FormEvent) => {
+  const handleLoginSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (pin === "Admin877") {
+    if (username === "admin" && password === "Admin877") {
       setIsAuthenticated(true);
-      setShowPinDialog(false);
+      setShowLoginDialog(false);
       fetchOrders();
       toast({
         title: "Access Granted",
@@ -45,10 +46,11 @@ const AdminDashboard = () => {
     } else {
       toast({
         title: "Access Denied",
-        description: "Invalid admin PIN",
+        description: "Invalid admin credentials",
         variant: "destructive"
       });
-      setPin("");
+      setUsername("");
+      setPassword("");
     }
   };
 
@@ -120,20 +122,29 @@ const AdminDashboard = () => {
 
   if (!isAuthenticated) {
     return (
-      <Dialog open={showPinDialog} onOpenChange={() => {}}>
+      <Dialog open={showLoginDialog} onOpenChange={() => {}}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-center">Admin Access</DialogTitle>
+            <DialogTitle className="text-center">Admin Login</DialogTitle>
           </DialogHeader>
-          <form onSubmit={handlePinSubmit} className="space-y-4">
+          <form onSubmit={handleLoginSubmit} className="space-y-4">
+            <div>
+              <Input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Username"
+                className="text-center"
+                required
+              />
+            </div>
             <div>
               <Input
                 type="password"
-                value={pin}
-                onChange={(e) => setPin(e.target.value)}
-                placeholder="Enter admin PIN"
-                className="text-center text-lg"
-                maxLength={8}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+                className="text-center"
                 required
               />
             </div>
@@ -151,7 +162,7 @@ const AdminDashboard = () => {
                 type="submit" 
                 className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground"
               >
-                Access Dashboard
+                Login
               </Button>
             </div>
           </form>
