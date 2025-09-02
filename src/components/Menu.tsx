@@ -173,7 +173,7 @@ const Menu = ({ onAddToCart }: MenuProps) => {
                   onClick={() => setSelectedCategory(category)}
                   className="relative group cursor-pointer flex-shrink-0"
                 >
-                  <div className={`relative w-24 h-24 rounded-full overflow-hidden border-4 transition-all duration-300 animate-pulse ${
+                  <div className={`relative w-24 h-24 rounded-full overflow-hidden border-4 transition-all duration-300 animate-heartbeat ${
                     selectedCategory === category 
                       ? 'border-primary shadow-glow' 
                       : 'border-border hover:border-primary/50'

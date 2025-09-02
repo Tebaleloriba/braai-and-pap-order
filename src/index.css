@@ -138,4 +138,27 @@ All colors MUST be HSL.
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  /* Heartbeat animation */
+  @keyframes heartbeat {
+    0%, 100% {
+      transform: scale(1);
+    }
+    14% {
+      transform: scale(1.05);
+    }
+    28% {
+      transform: scale(1);
+    }
+    42% {
+      transform: scale(1.05);
+    }
+    56% {
+      transform: scale(1);
+    }
+  }
+
+  .animate-heartbeat {
+    animation: heartbeat 2s infinite;
+  }
 }
