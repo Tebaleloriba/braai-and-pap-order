@@ -144,7 +144,7 @@ const Menu = ({ onAddToCart }: MenuProps) => {
         </div>
 
         {/* Category Filter - Image Cards with Horizontal Scroll */}
-        <div className="flex overflow-x-auto gap-4 mb-12 pb-2 scrollbar-hide">
+        <div className="flex overflow-x-auto gap-4 mb-12 pb-12 scrollbar-hide">
           <div className="flex gap-4 min-w-max px-4">
             {categories.map((category, index) => {
               const categoryImages = {
