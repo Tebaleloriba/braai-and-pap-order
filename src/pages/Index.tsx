@@ -7,6 +7,7 @@ import Menu from "@/components/Menu";
 import Cart from "@/components/Cart";
 import BottomNavigation from "@/components/BottomNavigation";
 import AuthModal from "@/components/AuthModal";
+import ContactForm from "@/components/ContactForm";
 
 interface CartItem {
   id: string;
@@ -133,7 +134,9 @@ const Index = () => {
       
       <Menu onAddToCart={addToCart} />
       
-      <BottomNavigation 
+      <ContactForm />
+      
+      <BottomNavigation
         cartItemCount={cartItemCount}
         onCartClick={() => {
           if (!user) {
