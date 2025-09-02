@@ -159,6 +159,36 @@ All colors MUST be HSL.
   }
 
   .animate-heartbeat {
-    animation: heartbeat 2s infinite;
+    animation: heartbeat 4s infinite;
+  }
+
+  .animate-heartbeat-delay-1 {
+    animation: heartbeat 4s infinite;
+    animation-delay: 0.6s;
+  }
+
+  .animate-heartbeat-delay-2 {
+    animation: heartbeat 4s infinite;
+    animation-delay: 1.2s;
+  }
+
+  .animate-heartbeat-delay-3 {
+    animation: heartbeat 4s infinite;
+    animation-delay: 1.8s;
+  }
+
+  .animate-heartbeat-delay-4 {
+    animation: heartbeat 4s infinite;
+    animation-delay: 2.4s;
+  }
+
+  .animate-heartbeat-delay-5 {
+    animation: heartbeat 4s infinite;
+    animation-delay: 3.0s;
+  }
+
+  .animate-heartbeat-delay-6 {
+    animation: heartbeat 4s infinite;
+    animation-delay: 3.6s;
   }
 }
