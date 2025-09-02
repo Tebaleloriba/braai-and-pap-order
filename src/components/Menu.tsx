@@ -143,6 +143,16 @@ const Menu = ({ onAddToCart }: MenuProps) => {
           </p>
         </div>
 
+        {/* Category Filter */}
+        <div className="text-center mb-8">
+          <h3 className="text-2xl md:text-3xl font-semibold text-foreground mb-2">
+            Choose Your Category
+          </h3>
+          <p className="text-muted-foreground">
+            Browse our delicious menu by category
+          </p>
+        </div>
+
         {/* Category Filter - Image Cards with Horizontal Scroll */}
         <div className="flex overflow-x-auto gap-4 mb-12 pb-12 scrollbar-hide">
           <div className="flex gap-4 min-w-max px-4">
@@ -163,7 +173,7 @@ const Menu = ({ onAddToCart }: MenuProps) => {
                   onClick={() => setSelectedCategory(category)}
                   className="relative group cursor-pointer flex-shrink-0"
                 >
-                  <div className={`relative w-24 h-24 rounded-full overflow-hidden border-4 transition-all duration-300 ${
+                  <div className={`relative w-24 h-24 rounded-full overflow-hidden border-4 transition-all duration-300 animate-pulse ${
                     selectedCategory === category 
                       ? 'border-primary shadow-glow' 
                       : 'border-border hover:border-primary/50'
