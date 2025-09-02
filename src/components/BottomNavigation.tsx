@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Home, Menu, ShoppingCart, Tag, MoreHorizontal } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface BottomNavigationProps {
   cartItemCount: number;
@@ -8,6 +9,7 @@ interface BottomNavigationProps {
 }
 
 const BottomNavigation = ({ cartItemCount, onCartClick, onMenuClick }: BottomNavigationProps) => {
+  const navigate = useNavigate();
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -54,6 +56,7 @@ const BottomNavigation = ({ cartItemCount, onCartClick, onMenuClick }: BottomNav
           variant="ghost" 
           size="sm" 
           className="flex flex-col items-center gap-1 h-auto py-2 px-3"
+          onClick={() => navigate('/promos')}
         >
           <Tag className="w-5 h-5" />
           <span className="text-xs">Promos</span>
