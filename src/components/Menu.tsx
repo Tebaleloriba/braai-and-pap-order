@@ -174,14 +174,6 @@ const Menu = ({ onAddToCart }: MenuProps) => {
                   className="relative group cursor-pointer flex-shrink-0"
                 >
                   <div className={`relative w-24 h-24 rounded-full overflow-hidden border-4 transition-all duration-300 ${
-                    index === 0 ? 'animate-heartbeat' : 
-                    index === 1 ? 'animate-heartbeat-delay-1' :
-                    index === 2 ? 'animate-heartbeat-delay-2' :
-                    index === 3 ? 'animate-heartbeat-delay-3' :
-                    index === 4 ? 'animate-heartbeat-delay-4' :
-                    index === 5 ? 'animate-heartbeat-delay-5' :
-                    'animate-heartbeat-delay-6'
-                  } ${
                     selectedCategory === category 
                       ? 'border-primary shadow-glow' 
                       : 'border-border hover:border-primary/50'
