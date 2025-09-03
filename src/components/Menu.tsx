@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Minus } from "lucide-react";
+import { Plus, Minus, Grid3X3, Users, ChefHat, Star, Leaf, Coffee } from "lucide-react";
 import papMealImage from "@/assets/pap-meal.jpg";
 import boereworsImage from "@/assets/boerewors.jpg";
 import potjiekosImage from "@/assets/potjiekos.jpg";
@@ -14,6 +14,10 @@ import cocaColaImage from "@/assets/coca-cola.jpg";
 import spriteImage from "@/assets/sprite.jpg";
 import strawberryMilkshakeImage from "@/assets/strawberry-milkshake.jpg";
 import vanillaMilkshakeImage from "@/assets/vanilla-milkshake.jpg";
+import castleLagerImage from "@/assets/castle-lager.jpg";
+import amarulaCreamImage from "@/assets/amarula-cream.jpg";
+import mageuImage from "@/assets/mageu.jpg";
+import rooibosTeaImage from "@/assets/rooibos-tea.jpg";
 
 interface MenuItem {
   id: string;
@@ -87,7 +91,7 @@ const menuItems: MenuItem[] = [
     name: "Mageu",
     description: "",
     price: 25,
-    image: potjiekosImage,
+    image: mageuImage,
     category: "Drinks"
   },
   {
@@ -95,7 +99,7 @@ const menuItems: MenuItem[] = [
     name: "Rooibos Tea",
     description: "",
     price: 20,
-    image: boereworsImage,
+    image: rooibosTeaImage,
     category: "Drinks"
   },
   {
@@ -103,7 +107,7 @@ const menuItems: MenuItem[] = [
     name: "Castle Lager",
     description: "",
     price: 35,
-    image: papMealImage,
+    image: castleLagerImage,
     category: "Drinks"
   },
   {
@@ -111,7 +115,7 @@ const menuItems: MenuItem[] = [
     name: "Amarula Cream",
     description: "",
     price: 45,
-    image: potjiekosImage,
+    image: amarulaCreamImage,
     category: "Drinks"
   },
   {
@@ -201,19 +205,21 @@ const Menu = ({ onAddToCart }: MenuProps) => {
           </p>
         </div>
 
-        {/* Category Filter - Image Cards with Horizontal Scroll */}
+        {/* Category Filter - Icon Cards with Horizontal Scroll */}
         <div className="flex overflow-x-auto gap-4 mb-12 pb-12 scrollbar-hide">
           <div className="flex gap-4 min-w-max px-4">
             {categories.map((category, index) => {
-              const categoryImages = {
-                "All": papMealImage,
-                "Combo Meals": papMealImage,
-                "Traditional": boereworsImage,
-                "Specialties": potjiekosImage,
-                "Sharing": papMealImage,
-                "Vegetarian": potjiekosImage,
-                "Drinks": boereworsImage
+              const categoryIcons = {
+                "All": Grid3X3,
+                "Combo Meals": Users,
+                "Traditional": ChefHat,
+                "Specialties": Star,
+                "Sharing": Users,
+                "Vegetarian": Leaf,
+                "Drinks": Coffee
               };
+              
+              const IconComponent = categoryIcons[category as keyof typeof categoryIcons] || Grid3X3;
               
               return (
                 <div
@@ -221,21 +227,22 @@ const Menu = ({ onAddToCart }: MenuProps) => {
                   onClick={() => setSelectedCategory(category)}
                   className="relative group cursor-pointer flex-shrink-0"
                 >
-                  <div className={`relative w-24 h-24 rounded-full overflow-hidden border-4 transition-all duration-300 ${
+                  <div className={`relative w-24 h-24 rounded-full border-4 transition-all duration-300 flex items-center justify-center ${
                     selectedCategory === category 
-                      ? 'border-primary shadow-glow' 
-                      : 'border-border hover:border-primary/50'
+                      ? 'border-primary shadow-glow bg-primary/10' 
+                      : 'border-border hover:border-primary/50 bg-background'
                   }`}>
-                    <img 
-                      src={categoryImages[category as keyof typeof categoryImages] || papMealImage}
-                      alt={category}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    <IconComponent 
+                      className={`w-8 h-8 transition-all duration-300 ${
+                        selectedCategory === category 
+                          ? 'text-primary scale-110' 
+                          : 'text-muted-foreground group-hover:text-primary group-hover:scale-110'
+                      }`}
                     />
-                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                   
-                  {/* Hover Label */}
-                  <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium whitespace-nowrap">
+                  {/* Category Label */}
+                  <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium whitespace-nowrap">
                     {category}
                   </div>
                 </div>
