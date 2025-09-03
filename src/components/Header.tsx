@@ -51,30 +51,15 @@ const Header = ({}: HeaderProps) => {
           
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            {user ? (
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-muted-foreground">
-                  {user.email}
-                </span>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleSignOut}
-                  className="flex items-center gap-1"
-                >
-                  <LogOut className="w-3 h-3" />
-                  Sign Out
-                </Button>
-              </div>
-            ) : (
+            {user && (
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setIsAuthModalOpen(true)}
+                onClick={handleSignOut}
                 className="flex items-center gap-1"
               >
-                <User className="w-3 h-3" />
-                Sign In
+                <LogOut className="w-3 h-3" />
+                Sign Out
               </Button>
             )}
             <Button 
