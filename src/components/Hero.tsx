@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-braai.jpg";
-import papMealImage from "@/assets/pap-meal.jpg";
-import boereworsImage from "@/assets/boerewors.jpg";
-import potjiekosImage from "@/assets/potjiekos.jpg";
+import cocaColaImage from "@/assets/coca-cola.jpg";
+import castleLagerImage from "@/assets/castle-lager.jpg";
+import chocolateMilkshakeImage from "@/assets/chocolate-milkshake.jpg";
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -16,22 +16,22 @@ const Hero = () => {
       subtitle: "Mzansi Flavors"
     },
     {
-      image: papMealImage,
-      alt: "Traditional pap and meat",
-      title: "Traditional",
-      subtitle: "Pap & Vleis"
+      image: cocaColaImage,
+      alt: "Refreshing Coca-Cola",
+      title: "Refreshing",
+      subtitle: "Coca-Cola"
     },
     {
-      image: boereworsImage,
-      alt: "Grilled boerewors",
-      title: "Fresh",
-      subtitle: "Boerewors"
+      image: castleLagerImage,
+      alt: "Castle Lager beer",
+      title: "Ice Cold",
+      subtitle: "Castle Lager"
     },
     {
-      image: potjiekosImage,
-      alt: "Traditional potjiekos",
-      title: "Slow Cooked",
-      subtitle: "Potjiekos"
+      image: chocolateMilkshakeImage,
+      alt: "Creamy chocolate milkshake",
+      title: "Creamy",
+      subtitle: "Chocolate Milkshake"
     }
   ];
 
@@ -48,7 +48,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative h-[50vh] flex items-center justify-center overflow-hidden">
+    <section className="relative h-[25vh] flex items-center justify-center overflow-hidden">
       {/* Sliding Background Images */}
       <div className="absolute inset-0 z-0">
         {slides.map((slide, index) => (

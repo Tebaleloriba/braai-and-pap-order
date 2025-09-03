@@ -195,16 +195,6 @@ const Menu = ({ onAddToCart }: MenuProps) => {
           </p>
         </div>
 
-        {/* Category Filter */}
-        <div className="text-center mb-8">
-          <h3 className="text-2xl md:text-3xl font-semibold text-foreground mb-2">
-            Choose Your Category
-          </h3>
-          <p className="text-muted-foreground">
-            Browse our delicious menu by category
-          </p>
-        </div>
-
         {/* Category Filter - Icon Cards with Horizontal Scroll */}
         <div className="flex overflow-x-auto gap-4 mb-12 pb-12 scrollbar-hide">
           <div className="flex gap-4 min-w-max px-4">
