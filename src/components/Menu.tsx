@@ -105,6 +105,46 @@ const menuItems: MenuItem[] = [
     price: 45,
     image: potjiekosImage,
     category: "Drinks"
+  },
+  {
+    id: "11",
+    name: "Coca-Cola",
+    description: "",
+    price: 25,
+    image: boereworsImage,
+    category: "Drinks"
+  },
+  {
+    id: "12",
+    name: "Sprite",
+    description: "",
+    price: 25,
+    image: papMealImage,
+    category: "Drinks"
+  },
+  {
+    id: "13",
+    name: "Vanilla Milkshake",
+    description: "",
+    price: 45,
+    image: potjiekosImage,
+    category: "Drinks"
+  },
+  {
+    id: "14",
+    name: "Chocolate Milkshake",
+    description: "",
+    price: 45,
+    image: boereworsImage,
+    category: "Drinks"
+  },
+  {
+    id: "15",
+    name: "Strawberry Milkshake",
+    description: "",
+    price: 45,
+    image: papMealImage,
+    category: "Drinks"
   }
 ];
 
