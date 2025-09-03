@@ -6,6 +6,14 @@ import { Plus, Minus } from "lucide-react";
 import papMealImage from "@/assets/pap-meal.jpg";
 import boereworsImage from "@/assets/boerewors.jpg";
 import potjiekosImage from "@/assets/potjiekos.jpg";
+import braaiPlatterImage from "@/assets/braai-platter.jpg";
+import traditionalPlateImage from "@/assets/traditional-plate.jpg";
+import boereworsPapImage from "@/assets/boerewors-pap.jpg";
+import chocolateMilkshakeImage from "@/assets/chocolate-milkshake.jpg";
+import cocaColaImage from "@/assets/coca-cola.jpg";
+import spriteImage from "@/assets/sprite.jpg";
+import strawberryMilkshakeImage from "@/assets/strawberry-milkshake.jpg";
+import vanillaMilkshakeImage from "@/assets/vanilla-milkshake.jpg";
 
 interface MenuItem {
   id: string;
@@ -28,7 +36,7 @@ const menuItems: MenuItem[] = [
     name: "Traditional Pap & Braai Combo",
     description: "",
     price: 159,
-    image: papMealImage,
+    image: braaiPlatterImage,
     category: "Combo Meals",
     popular: true
   },
@@ -37,7 +45,7 @@ const menuItems: MenuItem[] = [
     name: "Boerewors & Pap",
     description: "",
     price: 119,
-    image: boereworsImage,
+    image: boereworsPapImage,
     category: "Traditional"
   },
   {
@@ -54,7 +62,7 @@ const menuItems: MenuItem[] = [
     name: "Braai Platter for Two",
     description: "",
     price: 299,
-    image: papMealImage,
+    image: braaiPlatterImage,
     category: "Sharing"
   },
   {
@@ -62,7 +70,7 @@ const menuItems: MenuItem[] = [
     name: "Pap & Morogo",
     description: "",
     price: 89,
-    image: potjiekosImage,
+    image: traditionalPlateImage,
     category: "Vegetarian"
   },
   {
@@ -111,7 +119,7 @@ const menuItems: MenuItem[] = [
     name: "Coca-Cola",
     description: "",
     price: 25,
-    image: boereworsImage,
+    image: cocaColaImage,
     category: "Drinks"
   },
   {
@@ -119,7 +127,7 @@ const menuItems: MenuItem[] = [
     name: "Sprite",
     description: "",
     price: 25,
-    image: papMealImage,
+    image: spriteImage,
     category: "Drinks"
   },
   {
@@ -127,7 +135,7 @@ const menuItems: MenuItem[] = [
     name: "Vanilla Milkshake",
     description: "",
     price: 45,
-    image: potjiekosImage,
+    image: vanillaMilkshakeImage,
     category: "Drinks"
   },
   {
@@ -135,7 +143,7 @@ const menuItems: MenuItem[] = [
     name: "Chocolate Milkshake",
     description: "",
     price: 45,
-    image: boereworsImage,
+    image: chocolateMilkshakeImage,
     category: "Drinks"
   },
   {
@@ -143,7 +151,7 @@ const menuItems: MenuItem[] = [
     name: "Strawberry Milkshake",
     description: "",
     price: 45,
-    image: papMealImage,
+    image: strawberryMilkshakeImage,
     category: "Drinks"
   }
 ];
