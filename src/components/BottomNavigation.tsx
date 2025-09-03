@@ -1,17 +1,24 @@
 import { Button } from "@/components/ui/button";
-import { Home, Menu, ShoppingCart, Tag, MoreHorizontal } from "lucide-react";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Home, Menu, ShoppingCart, Tag, MoreHorizontal, LogOut, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 
 interface BottomNavigationProps {
   cartItemCount: number;
   onCartClick: () => void;
   onMenuClick: () => void;
+  user: any;
 }
 
-const BottomNavigation = ({ cartItemCount, onCartClick, onMenuClick }: BottomNavigationProps) => {
+const BottomNavigation = ({ cartItemCount, onCartClick, onMenuClick, user }: BottomNavigationProps) => {
   const navigate = useNavigate();
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
   };
 
   return (
@@ -62,14 +69,48 @@ const BottomNavigation = ({ cartItemCount, onCartClick, onMenuClick }: BottomNav
           <span className="text-xs">Promos</span>
         </Button>
         
-        <Button 
-          variant="ghost" 
-          size="sm" 
-          className="flex flex-col items-center gap-1 h-auto py-2 px-3"
-        >
-          <MoreHorizontal className="w-5 h-5" />
-          <span className="text-xs">More</span>
-        </Button>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="flex flex-col items-center gap-1 h-auto py-2 px-3"
+            >
+              <MoreHorizontal className="w-5 h-5" />
+              <span className="text-xs">More</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="right" className="w-80">
+            <SheetHeader>
+              <SheetTitle>Menu</SheetTitle>
+            </SheetHeader>
+            <div className="mt-6 space-y-4">
+              {user ? (
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 p-4 bg-muted rounded-lg">
+                    <User className="w-5 h-5" />
+                    <div>
+                      <p className="font-medium">Signed in as</p>
+                      <p className="text-sm text-muted-foreground">{user.email}</p>
+                    </div>
+                  </div>
+                  <Button
+                    variant="outline"
+                    onClick={handleSignOut}
+                    className="w-full flex items-center gap-2"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    Sign Out
+                  </Button>
+                </div>
+              ) : (
+                <div className="p-4 bg-muted rounded-lg text-center">
+                  <p className="text-muted-foreground">You are not signed in</p>
+                </div>
+              )}
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
     </div>
   );

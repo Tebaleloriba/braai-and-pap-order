@@ -177,6 +177,7 @@ const Index = () => {
           setIsCartOpen(true);
         }}
         onMenuClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}
+        user={user}
       />
       
       <Cart
