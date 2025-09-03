@@ -178,6 +178,7 @@ const Index = () => {
         }}
         onMenuClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}
         user={user}
+        onSignInClick={() => setIsAuthModalOpen(true)}
       />
       
       <Cart

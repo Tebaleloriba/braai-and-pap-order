@@ -9,9 +9,10 @@ interface BottomNavigationProps {
   onCartClick: () => void;
   onMenuClick: () => void;
   user: any;
+  onSignInClick: () => void;
 }
 
-const BottomNavigation = ({ cartItemCount, onCartClick, onMenuClick, user }: BottomNavigationProps) => {
+const BottomNavigation = ({ cartItemCount, onCartClick, onMenuClick, user, onSignInClick }: BottomNavigationProps) => {
   const navigate = useNavigate();
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -104,8 +105,17 @@ const BottomNavigation = ({ cartItemCount, onCartClick, onMenuClick, user }: Bot
                   </Button>
                 </div>
               ) : (
-                <div className="p-4 bg-muted rounded-lg text-center">
-                  <p className="text-muted-foreground">You are not signed in</p>
+                <div className="space-y-4">
+                  <div className="p-4 bg-muted rounded-lg text-center">
+                    <p className="text-muted-foreground mb-3">You are not signed in</p>
+                    <Button
+                      onClick={onSignInClick}
+                      className="w-full flex items-center gap-2"
+                    >
+                      <User className="w-4 h-4" />
+                      Sign In
+                    </Button>
+                  </div>
                 </div>
               )}
             </div>

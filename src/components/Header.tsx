@@ -51,17 +51,6 @@ const Header = ({}: HeaderProps) => {
           
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            {user && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleSignOut}
-                className="flex items-center gap-1"
-              >
-                <LogOut className="w-3 h-3" />
-                Sign Out
-              </Button>
-            )}
             <Button 
               onClick={scrollToMenu}
               size="sm" 
